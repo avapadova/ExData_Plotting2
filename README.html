@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title>ExData_Plotting2</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+<h1>ExData_Plotting2</h1>
+
+<h1>Introduction</h1>
+
+<p>Fine particulate matter (PM2.5) is an ambient air pollutant for which there is strong evidence that it is
+harmful to human health. In the United States, the Environmental Protection Agency (EPA) is tasked
+with setting national ambient air quality standards for fine PM and for tracking the emissions of this
+pollutant into the atmosphere. Approximatly every 3 years, the EPA releases its database on emissions
+of PM2.5. This database is known as the National Emissions Inventory (NEI). You can read more
+information about the NEI at the EPA National Emissions Inventory web site.
+For each year and for each type of PM source, the NEI records how many tons of PM2.5 were emitted
+from that source over the course of the entire year. The data that you will use for this assignment are for
+1999, 2002, 2005, and 2008.</p>
+
+<h1>Data</h1>
+
+<p>The data for this assignment are available from the course web site as a single zip file:</p>
+
+<h1>Data for Peer Assessment [29Mb]</h1>
+
+<p>The zip file contains two files:
+PM2.5 Emissions Data (summarySCC_PM25.rds): This file contains a data frame with all of the
+PM2.5 emissions data for 1999, 2002, 2005, and 2008. For each year, the table contains number
+of tons of PM2.5 emitted from a specific type of source for the entire year. Here are the first few rows.</p>
+
+<ul>
+<li>fips: A five-digit number (represented as a string) indicating the U.S. county</li>
+<li>SCC: The name of the source as indicated by a digit string (see source code classification table)</li>
+<li>Pollutant: A string indicating the pollutant</li>
+<li>Emissions: Amount of PM2.5 emitted, in tons</li>
+<li>type: The type of source (point, non-point, on-road, or non-road)</li>
+<li>year: The year of emissions recorded</li>
+</ul>
+
+<p>Source Classification Code Table (Source_Classification_Code.rds): This table provides a mapping
+from the SCC digit strings int he Emissions table to the actual name of the PM2.5 source. The sources
+are categorized in a few different ways from more general to more specific and you may choose to
+explore whatever categories you think are most useful. For example, source &ldquo;10100101&rdquo; is known as
+&ldquo;Ext Comb /Electric Gen /Anthracite Coal /Pulverized Coal&rdquo;.</p>
+
+<p>You can read each of the two files using the readRDS() function in R. For example, reading in each file
+can be done with the following code:</p>
+
+<p>##This first line will likely take a few seconds. Be patient!</p>
+
+<p>NEI &lt;- readRDS(&ldquo;summarySCC_PM25.rds&rdquo;)</p>
+
+<p>SCC &lt;- readRDS(&ldquo;Source_Classification_Code.rds&rdquo;)</p>
+
+<h1>Assignment</h1>
+
+<p>The overall goal of this assignment is to explore the National Emissions Inventory database and see
+what it say about fine particulate matter pollution in the United states over the 10-year period 1999-
+2008. You may use any R package you want to support your analysis.</p>
+
+<h1>Questions</h1>
+
+<p>You must address the following questions and tasks in your exploratory analysis. For each
+question/task you will need to make a single plot. Unless specified, you can use any plotting system in
+R to make your plot.</p>
+
+<ol>
+<li><p>Have total emissions from PM2.5 decreased in the United States from 1999 to 2008? Using
+the base plotting system, make a plot showing the total PM2.5 emission from all sources for each of
+the years 1999, 2002, 2005, and 2008.</p></li>
+<li><p>Have total emissions from PM2.5 decreased in the Baltimore City, Maryland (fips == &ldquo;24510&rdquo;)
+from 1999 to 2008? Use the baseplotting system to make a plot answering this question.</p></li>
+<li><p>Of the four types of sources indicated by the type (point, nonpoint, onroad, nonroad) variable,
+which of these four sources have seen decreases in emissions from 1999-2008 for Baltimore
+City? Which have seen increases in emissions from 1999-2008? Use the ggplot2 plotting system
+to make a plot answer this question.</p></li>
+<li><p>Across the United States, how have emissions from coal combustion-related sources changed from
+1999-2008?</p></li>
+<li><p>How have emissions from motor vehicle sources changed from 1999-2008 in Baltimore City?</p></li>
+<li><p>Compare emissions from motor vehicle sources in Baltimore City with emissions from motor
+vehicle sources in Los Angeles County, California (fips == &ldquo;06037&rdquo;). Which city has seen greater
+changes over time in motor vehicle emissions?</p></li>
+</ol>
+
+</body>
+
+</html>
+
